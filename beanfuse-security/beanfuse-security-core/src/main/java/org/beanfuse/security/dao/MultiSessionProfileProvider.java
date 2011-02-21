@@ -1,7 +1,9 @@
 package org.beanfuse.security.dao;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.beanfuse.persist.hibernate.BaseDaoHibernate;
 import org.beanfuse.security.UserCategory;
@@ -35,14 +37,16 @@ public class MultiSessionProfileProvider extends BaseDaoHibernate implements Ses
 		}
 		SessionProfile profile = (SessionProfile) entityDao.get(SessionProfile.class,
 				sessionProfileId);
-		entityDao.initialize(profile.getCategoryProfiles());
+		List<CategoryProfile> categoryProfiles = entityDao.searchHQLQuery("from CategoryProfile");
 		// initialize profile.categoryprofiles
-		for (Iterator iter = profile.getCategoryProfiles().keySet().iterator(); iter.hasNext();) {
-			Long categoryId = (Long) iter.next();
-			CategoryProfile categoryProfile = (CategoryProfile) profile.getCategoryProfiles().get(
-					categoryId);
-			entityDao.initialize(categoryProfile);
+		Map newCategoryProfiles=new HashMap();
+		for (Iterator iterator = categoryProfiles.iterator(); iterator.hasNext();) {
+			CategoryProfile cp = (CategoryProfile) iterator.next();
+			Long categoryId=cp.getCategory().getId();
+			cp.setCategory((UserCategory) entityDao.get(UserCategory.class, categoryId));
+			newCategoryProfiles.put(categoryId, cp);
 		}
+		profile.setCategoryProfiles(newCategoryProfiles);
 		return profile;
 	}
 
