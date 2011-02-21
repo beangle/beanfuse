@@ -1,0 +1,11 @@
+1)增加scan功能，取消action的struts配置
+2)mutiple profile
+3)actionNameBuilder support simple/short/seo uri styles
+4)viewPathStyle support simple/full/seo styles
+5)programing action forward api
+
+依赖包升级
+xwork 2.1.2->2.1.6
+strust2 2.1.6->2.1.8.1
+ognl 2.6.11->2.7.3
+freemarker 2.3.13 ->2.3.15

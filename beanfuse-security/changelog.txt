@@ -1,0 +1,24 @@
+*1.2.0(2009-8-2)
+[01]将角色更名为Group，增加了上下级关系。取消对超级管理员用户组的依赖，用户属性中增加是否管理员属性
+[02]在resource中增加了可见范围，private/protected/public. public资源不用再权限配置中添加到ignoreResources集合中
+    (authorityDecisionService)
+[03]取消了用户直接权限(UserAuthority)，原有的用户权限直接变为与用户同名组的权限。菜单权限也做类似处理。
+[04]取消用户直接管理联系，取而代之只要管理了某组，该组的用户直接可以受用户管理。
+[05]登录审计改为online在线统计
+[06]数据库表名采用英文命名
+[07]SessionInfo更名为SessionActivity，从monitor模块中移动到api和core中，同样的还有SessionInfoService及其实现
+*1.1.0-snapshort(2009-1-19)
+enhancement
+[01]将CategoryProfile移动到code模块中，并在monitor中将原来的CategoryProfile改为OnlineCategoryProfile
+[02]将CategoryProfile持久化，增加CategoryProfile.hbm.xml
+[03]monitor中的SessionController中增加getSessionInfos(User)
+[04]monitor中的SessionController中的getSessionInfos(Long category)更改为getSessionInfos(UserCategory)
+[05]将属于UserAdmin和RoleAdmin的用户（现在只有admin）不受用户和角色管理的数据限制。
+[06]增强了errorAction对错误码的判断和识别
+[07]增加了UserDashboardAction和RestrictionHelper，以利于查看用户在权限系统的各种汇总信息。
+[08]除去了ConcurrentSessionControllerImpl中的getSessionRegistry()方法，以保护sessionRegistry的访问独占性
+[09]ConcurrentSessionControllerImpl增加了代理sessionRegistry的两个(isRegisted\getSessionInfo)方法
+[10]增加了struts2部分
+fix
+[01]修复了UserAction.info出现无限递归的错误
+*1.0.0(init)

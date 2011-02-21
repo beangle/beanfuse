@@ -1,0 +1,12 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<mapping resource="org/beanfuse/model/example/ContractInfo.hbm.xml"/>
+		<mapping resource="org/beanfuse/model/example/Employer.hbm.xml"/>
+		<mapping resource="org/beanfuse/model/example/OldName.hbm.xml"/>
+		<mapping resource="org/beanfuse/model/example/Skill.hbm.xml"/>
+		<mapping resource="org/beanfuse/model/example/SkillType.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>

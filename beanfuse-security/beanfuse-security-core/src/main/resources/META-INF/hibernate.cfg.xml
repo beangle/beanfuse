@@ -1,0 +1,11 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<mapping resource="org/beanfuse/security/model/hibernate.hbm.xml"/>
+		<mapping resource="org/beanfuse/security/menu/model/hibernate.hbm.xml"/>
+		<mapping resource="org/beanfuse/security/restriction/model/hibernate.hbm.xml"/>
+		<mapping resource="org/beanfuse/security/online/model/hibernate.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>

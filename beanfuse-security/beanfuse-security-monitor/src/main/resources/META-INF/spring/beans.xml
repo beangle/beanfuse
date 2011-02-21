@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="passwordEncoder"
+		class="org.beanfuse.security.providers.encoding.DigestPasswordEncoder">
+		<property name="algorithm" value="MD5"/>
+	</bean>
+	
+	<bean id="daoUserProvider"
+		class="org.beanfuse.security.providers.dao.DaoAuthenticationProvider"
+		autowire="byName"/>
+	
+	<bean id="ssoUserProvider"
+		class="org.beanfuse.security.providers.sso.SsoDefaultAuthenticationProvider"
+		autowire="byName"/>
+	
+	<bean id="sessionRegistry"
+		class="org.beanfuse.security.concurrent.MemSessionRegistry"
+		autowire="byName"/>
+	
+	<bean id="sessionController"
+		class="org.beanfuse.security.concurrent.category.CategorySessionControllerImpl"
+		autowire="byName">
+		<property name="maximumSessions" value="1"/>
+		<property name="exceptionIfMaximumExceeded" value="false"/>
+	</bean>
+	
+	<bean id="rememberMeService"
+		class="org.beanfuse.security.providers.rememberme.TokenBasedRememberMeServiceImpl"
+		autowire="byName"/>
+	
+	<bean id="httpSessionIntegrationFilter"
+		class="org.beanfuse.security.monitor.filters.HttpSessionCategoryIntegrationFilter"
+		autowire="byName"/>
+		
+	<bean id="userDetailsSource"
+		class="org.beanfuse.security.ui.WebUserDetailsSource"
+		autowire="byName"/>
+	
+	<bean id="tokenAuthenticationProvider"
+		class="org.beanfuse.security.providers.sso.SsoTokenAuthenticationProvider"
+		autowire="byName"/>
+		
+	<bean id="securityMonitor"
+		class="org.beanfuse.security.monitor.DefaultSecurityMonitor" autowire="byName">
+		<property name="rememberMeService" ref="rememberMeService"/>
+		<property name="sessionController" ref="sessionController"/>
+		<property name="userDetailsSource" ref="userDetailsSource"/>
+		<property name="authorityDecisionService" ref="authorityDecisionService"/>
+		<property name="httpSessionIntegrationFilter" ref="httpSessionIntegrationFilter"/>
+		<property name="providers">
+			<list>
+				<ref bean="ssoUserProvider"></ref>
+				<ref bean="daoUserProvider"></ref>
+			</list>
+		</property>
+	</bean>
+</beans>

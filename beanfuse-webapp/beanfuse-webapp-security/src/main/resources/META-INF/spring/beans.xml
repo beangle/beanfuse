@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="captchaService" class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+    	<property name="captchaEngine">
+            <bean class="org.beanfuse.webapp.captcha.service.GmailEngine" />
+        </property>
+        <property name="minGuarantedStorageDelayInSeconds" value="600" />
+    </bean>
+</beans>

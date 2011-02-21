@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.beanfuse.model.example.ManagerEmployer"
+		table="CS_Employer_T"
+		entity-name="org.beanfuse.model.example.Employer">
+		<id name="id" column="ID" unsaved-value="null">
+			<generator class="assigned"/>
+		</id>
+		<component name="name">
+			<property name="firstName"/>
+			<property name="lastName"/>
+			<bag name="oldNames" table="CS_Employer_OldName_T">
+				<key column="EmployerId"/>
+				<one-to-many
+					entity-name="org.beanfuse.model.example.OldName"/>
+			</bag>
+		</component>
+		<many-to-one name="contractInfo"/>
+		<map name="skills" table="CS_Employer_Skill_T">
+			<key column="EmployerId"/>
+			<map-key type="long" column="skillTypeId"/>
+			<many-to-many
+				entity-name="org.beanfuse.model.example.Skill" column="SkillId"/>
+		</map>
+	</class>
+</hibernate-mapping>

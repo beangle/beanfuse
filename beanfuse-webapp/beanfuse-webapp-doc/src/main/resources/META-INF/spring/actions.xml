@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean name="doc.static-download" singleton="false" 
+	  class="org.beanfuse.webapp.doc.action.StaticDownloadAction" 
+	    autowire="byName">
+	    <property name="loaders">
+	    	<list>
+				<ref bean="classpathDocLoader"></ref>
+			</list>
+		</property>
+	</bean>
+</beans>

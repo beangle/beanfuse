@@ -1,0 +1,40 @@
+*1.0.9(2008-10-16)
+[01]junit -> testng
+[02]jdk1.3 -> jdk1.4
+*1.0.8
+[01]更新了limit包,pageNumber更改为pageNo
+[02]support包重新命名为hibernate包
+[03]更改了sqlquery中的params初始化和赋值实现
+[04]添加了add(Collection cons)方法
+[05]修复了query不能多次查询利用的bug
+[06]修复了QueryPage中的分页错误
+[07]PageAdapter(pageLimit)
+*1.0.7-2(2008-8-2)
+[01]更新了依赖log包，从common-log到slf4
+[02]更改了内部log的使用
+*1.0.7-1(2008-5-6)
+[01]改动了EntityQuery,增加了构造函数
+*1.0.7(2008-4-29)
+[01]重构了pagination的命名，更名为SinglePage
+[02]引入了Page接口和EmptyPage以及AbstractQueryPage实现类
+*1.0.6(2008-3-29)
+[01]对Order中的order进行了重新命名,改为direction
+[02]针对工程进行pmd检验
+*1.0.5(2008-3-23)
+[01]删除了RequestSupport,该类移到utils项目组中了
+*1.0.4-2
+[01]更新了对model(1.0.6)的引用
+*1.0.4-1
+[02]增加对日期区间的查找功能
+*1.0.4
+[01]RequestSupport增加了接口查询的条件收集功能
+*1.0.3
+[01]增加了query的缓存支持
+*1.0.2
+1、增加了uniqueResult
+2、在Order增加了排序所使用的保留用词orderBy
+3、修补了对于字符串构造的entityQuery方法toCountString报错的bug
+4、修正了OrderUtils的parder方法的错误，该方法对利用空格拆分order by 字句
+5、修正了OrderUtils的parder方法的错误，该方法对 asc的处理不当
+6、添加了requestSupport中的reservedNull
+*1.0.1

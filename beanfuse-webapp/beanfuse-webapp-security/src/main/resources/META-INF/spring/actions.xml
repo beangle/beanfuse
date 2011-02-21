@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!--权限部分-->
+	<bean name="login" singleton="false" class="org.beanfuse.webapp.security.action.LoginAction">
+		 <property name="securityMonitor" ref="securityMonitor"/>
+		 <property name="captchaService" ref="captchaService"/>
+	</bean>
+
+	<bean name="captcha/image" singleton="false"
+		class="org.beanfuse.webapp.captcha.action.ImageAction">
+		<property name="captchaService" ref="captchaService"/>
+	</bean>
+	
+	<bean name="index" singleton="false"
+		class="org.beanfuse.webapp.security.action.IndexAction" autowire="byName">
+	</bean>
+	
+	<bean name="home" singleton="false"
+		class="org.beanfuse.webapp.security.action.HomeAction" autowire="byName">
+	</bean>
+	
+	<bean name="error" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.ErrorAction"/>
+	
+	<bean name="logout" singleton="false" class="org.beanfuse.webapp.security.action.LogoutAction">
+	   <property name="securityMonitor" ref="securityMonitor"/>
+	</bean>
+	
+	<bean name="myAccount" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.MyAccountAction">
+		<!--<property name="mailSender" ref="mailSender"/>
+        <property name="message" ref="mailMessage"/>-->
+    </bean>
+	
+	<bean name="user" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.UserAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="entityName" value="org.beanfuse.security.User"/>
+	</bean>
+	
+	<bean name="password"  singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.PasswordAction">
+		<property name="userService" ref="userService" />
+		<property name="entityName" value="org.beanfuse.security.User" />
+	</bean>
+	
+	<bean name="group" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.GroupAction">
+		<property name="userService" ref="userService"/>
+		<property name="authorityService" ref="authorityService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="entityName" value="org.beanfuse.security.Group"/>
+	</bean>
+	
+	<bean name="menu" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.MenuAction">
+		<property name="entityName" value="org.beanfuse.security.menu.Menu"/>
+	</bean>
+	
+	<bean name="menuProfile" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.MenuProfileAction">
+		<property name="entityName" value="org.beanfuse.security.menu.MenuProfile"/>
+	</bean>
+	
+	<bean name="resource" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.ResourceAction">
+		<property name="entityName" value="org.beanfuse.security.Resource"/>
+	</bean>
+	
+	<bean name="restrictionPattern" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.PatternAction">
+		<property name="entityName" value="org.beanfuse.security.restriction.Pattern"/>
+	</bean>
+	
+	<bean name="restriction" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.RestrictionAction">
+		<property name="entityName" value="org.beanfuse.security.restriction.Restriction"/>
+	</bean>
+	
+	<bean name="param" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.ParamAction">
+		<property name="entityName" value="org.beanfuse.security.restriction.Param"/>
+	</bean>
+	
+	<bean name="menuAuthority" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.MenuAuthorityAction">
+		<property name="authorityService" ref="authorityService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="authorityDecisionService" ref="authorityDecisionService"/>
+	</bean>
+	
+	<bean name="sessionActivity" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.SessionActivityAction">
+	</bean>
+	
+	<bean name="onlineUser" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.OnlineUserAction">
+	</bean>
+	
+	<bean name="userDashboard" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.UserDashboardAction">
+	</bean>
+	
+	<bean name="securityDashboard" singleton="false" autowire="byName"
+		class="org.beanfuse.webapp.security.action.DashboardAction">
+	</bean>
+</beans>

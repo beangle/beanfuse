@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="userService" class="org.beanfuse.injection.spring.UserService"/>
+	
+	<bean id="userDaoProvider" class="org.beanfuse.injection.spring.UserDaoProvider"/>
+
+	<bean id="userLdapProvider" class="org.beanfuse.injection.spring.UserLdapProvider"/>
+
+    <bean id="userLdapService" class="org.beanfuse.injection.spring.UserService">
+    	<property name="provider" ref="userDaoProvider"/>
+    </bean>
+    
+    <bean id="dependencyInjection" class="org.beanfuse.injection.spring.DependencyInjection"/>
+</beans>

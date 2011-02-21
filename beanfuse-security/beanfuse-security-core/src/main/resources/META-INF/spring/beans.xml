@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="userDao" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="org.beanfuse.security.dao.UserDaoHibernate"
+				autowire="byName"/>
+		</property>
+	</bean>
+	
+	<bean id="groupDao" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="org.beanfuse.security.dao.GroupDaoHibernate"
+				autowire="byName"/>
+		</property>
+	</bean>
+	
+	<bean id="authorityDao" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="org.beanfuse.security.dao.AuthorityDaoHibernate"
+				autowire="byName"/>
+		</property>
+	</bean>
+	
+	<bean id="menuAuthorityDao" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="org.beanfuse.security.menu.dao.MenuAuthorityDaoHibernate"
+				autowire="byName"/>
+		</property>
+	</bean>
+	
+	<bean id="menuDao" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="org.beanfuse.security.menu.dao.MenuDaoHibernate"
+				autowire="byName"/>
+		</property>
+	</bean>
+	
+	<bean id="userService"
+		class="org.beanfuse.security.service.UserServiceImpl"
+		autowire="byName"/>
+	
+	<bean id="groupService"
+		class="org.beanfuse.security.service.GroupServiceImpl"
+		autowire="byName"/>
+	
+	<bean id="resourceService"
+		class="org.beanfuse.security.service.ResourceServiceImpl"
+		autowire="byName"/>
+	
+	<bean id="menuService"
+		class="org.beanfuse.security.menu.service.MenuServiceImpl"
+		autowire="byName"/>
+	
+	<bean id="authorityService"
+		class="org.beanfuse.security.service.AuthorityServiceImpl"
+		autowire="byName"/>
+	
+	<bean id="menuAuthorityService"
+		class="org.beanfuse.security.menu.service.MenuAuthorityServiceImpl"
+		autowire="byName"/>
+	
+	<bean id="restrictionService"
+		class="org.beanfuse.security.restriction.service.RestrictionServiceImpl"
+		autowire="byName"/>
+	
+	<bean id="restrictionApply"
+		class="org.beanfuse.security.restriction.service.RestrictionEntityQueryApply"
+		autowire="byName"/>
+
+	<bean id="authorityDecisionService"
+		class="org.beanfuse.security.service.AuthorityDecisionServiceImpl"
+		autowire="byName">
+	</bean>
+	
+	<bean id="onlineActivityService" class="org.beanfuse.security.online.service.OnlineActivityServiceImpl" autowire="byName"/>
+		
+	<bean id="profileProvider"  class="org.beanfuse.security.dao.MultiSessionProfileProvider" autowire="byName"/>
+</beans>

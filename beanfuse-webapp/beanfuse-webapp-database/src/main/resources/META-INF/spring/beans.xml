@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean name="sqlService" singleton="false" 
+	class="org.beanfuse.webapp.database.service.SqlService" autowire="byName">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+</beans>

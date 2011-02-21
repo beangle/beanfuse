@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.beanfuse.security.model">
+	<class name="UserCategory"	entity-name="org.beanfuse.security.UserCategory" >
+		<cache usage="read-write"/>
+		<id name="id"  unsaved-value="null">
+		  <generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="name" length="50" unique="true"/>
+	</class>
+	
+   <!--用户-->
+	<class name="User" entity-name="org.beanfuse.security.User">
+		<id name="id"  unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="name" not-null="true" unique="true"	length="50"/>
+		<property name="fullname" length="40" not-null="true"/>
+		<property name="password" not-null="true" length="255"/>
+		<property name="status" not-null="true"/>
+		<property name="mail" length="100" not-null="true"/>
+		<property name="admin"  not-null="true"/>
+		
+		<many-to-one name="creator"/>
+		<property name="createdAt" not-null="true"/>
+		<property name="updatedAt" not-null="true"/>
+		<property name="remark" length="500"/>
+		
+		<many-to-one name="defaultCategory"   not-null="true"/>
+		<set name="categories" >
+			<key column="user_id"/>
+			<many-to-many column="category_id"	class="org.beanfuse.security.UserCategory"/>
+		</set>
+		<set name="groups" table="groups_users">
+			<key column="user_id"/>
+			<many-to-many column="group_id"	class="org.beanfuse.security.Group"/>
+		</set>
+		
+		<set name="mngGroups" table="groups_managers">
+			<key column="user_id"/>
+			<many-to-many column="group_id" class="org.beanfuse.security.Group"/>
+		</set>
+		
+		<set name="restrictions" inverse="true"	cascade="all,delete-orphan">
+			<key column="holder_id"/>
+			<one-to-many class="org.beanfuse.security.restriction.UserRestriction"/>
+		</set>
+	</class>
+	
+	<!--用户组-->
+	<class name="Group" entity-name="org.beanfuse.security.Group">
+		<cache usage="read-write"/>
+		<id name="id"  unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="name" length="50" unique="true"	not-null="true"/>
+		<property name="remark" length="500"/>
+		
+		<many-to-one name="creator" not-null="true"/>
+		<many-to-one name="category" not-null="true"/>
+		<many-to-one name="parent" column="parent_id"/>
+		<set name="children" inverse="true" cascade="all,delete-orphan">
+			<key column="parent_id" not-null="true"/>
+			<one-to-many class="org.beanfuse.security.Group"/>
+		</set>
+		<property name="createdAt"  not-null="true"/>
+		<property name="updatedAt"  not-null="true"/>
+		<property name="enabled"  not-null="true"/>
+		
+		<set name="users">
+			<key column="group_id"/>
+			<many-to-many column="user_id" class="org.beanfuse.security.User"/>
+		</set>
+		
+		<set name="managers">
+			<key column="group_id"/>
+			<many-to-many column="user_id" class="org.beanfuse.security.User"/>
+		</set>
+		
+		<set name="authorities" inverse="true" cascade="all,delete-orphan">
+			<key column="group_id" not-null="true"/>
+			<one-to-many class="org.beanfuse.security.Authority"/>
+		</set>
+		
+		<set name="menuAuthorities" inverse="true" cascade="all,delete-orphan">
+			<key column="group_id" not-null="true"/>
+			<one-to-many entity-name="org.beanfuse.security.menu.MenuAuthority"/>
+		</set>
+		
+		<set name="restrictions" inverse="true"	cascade="all,delete-orphan">
+			<key column="holder_id"/>
+			<one-to-many class="org.beanfuse.security.restriction.GroupRestriction"/>
+		</set>
+	</class>
+
+	<class name="Resource" 	entity-name="org.beanfuse.security.Resource">
+		<cache usage="read-write"/>
+		<id name="id"  unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="name" length="50" unique="true"/>
+		<property name="title" length="100" not-null="true"/>
+		<property name="description" length="100"/>
+		<property name="enabled" not-null="true"/>
+		<property name="scope" not-null="true"/>
+		<set name="patterns">
+			<key column="resource_id" not-null="true"/>
+			<many-to-many column="pattern_id"
+				class="org.beanfuse.security.restriction.Pattern"/>
+		</set>
+		<set name="categories">
+			<key column="resource_id" not-null="true"/>
+			<many-to-many column="category_id" class="org.beanfuse.security.UserCategory"/>
+		</set>
+	</class>
+
+	<class name="Authority" entity-name="org.beanfuse.security.Authority">
+		<id name="id"  unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<many-to-one name="group" />
+		<many-to-one name="resource"/>
+
+		<set name="restrictions" cascade="all,delete-orphan">
+			<key column="holder_id" />
+			<one-to-many class="org.beanfuse.security.restriction.AuthorityRestriction" />
+		</set>
+	</class>
+	
+	<query name="getAuthorityByResource">
+		<![CDATA[ from Authority as ra  where	(ra.group = :group and ra.resource = :resource) ]]>
+	</query>
+	<query name="getAuthorities">
+		<![CDATA[
+       select distinct a from  Group as r join r.authorities as a join a.resource as m  where r.id = :groupId ]]>
+	</query>
+	<query name="userLogin">
+		<![CDATA[
+       from User user where  user.name = :name and user.password = :password  ]]>
+	</query>
+</hibernate-mapping>

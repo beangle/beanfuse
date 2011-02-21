@@ -1,0 +1,33 @@
+*1.0.6(2008-10-16)
+[01]junit -> testng
+[02]jdk1.3 -> jdk1.4
+*1.0.5-1(2008-8-2)
+[01]更新了依赖log包，从common-log到slf4
+[02]更改了内部log的使用
+[03]升级引用jxls-core的版本从0.9.2到0.9.6
+[04]升级引用poi的版本从2.5到3.0.2
+[05]更改了ExcelTools和ExcelReader、ExcelWriter中的使用POI的代码
+[06]在ItemExporter中transfer中增加标题为空的判断
+*1.0.5(2008-7-9)
+[01]导出工具借助与javadbf包可以支持DBF文件格式的数据导出功能
+*1.0.4-3(2008-7-8)
+[01]在导入文件中支持明写的"null"字符串
+*1.0.4-2(2008-6-19)
+[01]在ItemExporter中添加了context
+*1.0.4-1(2008-5-5)
+[01]更新了model-1.0.8的引用
+*1.0.4(2008-4-5)
+[01]更新了对model-1.0.7的引用，在EntityImporter中加入了setPopulator方法
+[02]在DefaultEntityImporter中加入了populator的成员变量
+*1.0.3(2008-3-23)
+[01]去除了StrutsMessageResource和ImporterServletSupport，以及SimplePropertyExtractor
+    摆脱了对struts和servlet的依赖
+*1.0.2
+[01]增加了导出TXT的功能
+[02]将SimplePropertyExtractor脱离struts的MessageResource
+*1.0.1 
+*增加了在转换前如果失败则不进行转换的功能
+*增加了改变转换中的当前值的功能，changeCurValue(String attr,Object value);
+*增加了获取转换属性说明的方法getDescription
+*修改了setContext中的bug
+*1.0 initial

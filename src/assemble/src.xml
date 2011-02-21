@@ -1,0 +1,47 @@
+<!--<assembly>
+  <id>src</id>
+  <formats>
+    <format>dir</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <moduleSets>
+    <moduleSet>
+      <includes>
+        <include>org.beanfuse:model</include>
+      </includes>
+      <sources>
+        <outputDirectory>sources/${artifactId}</outputDirectory>
+      </sources>
+    </moduleSet>
+  </moduleSets>
+</assembly>
+-->
+<assembly>
+  <id>dddd</id>
+  <formats>
+    <format>jar</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <includes>
+        <include>pom.xml</include>
+      </includes>
+      <useDefaultExcludes>true</useDefaultExcludes>
+    </fileSet>
+    <fileSet>
+      <directory>src</directory>
+      <useDefaultExcludes>true</useDefaultExcludes>
+    </fileSet>
+  </fileSets>
+  <moduleSets>
+    <moduleSet>
+      <includes>
+        <include>org.beanfuse:model</include>
+      </includes>
+      <binaries>
+        <outputDirectory>${artifactId}/target/classes</outputDirectory>
+      </binaries>
+    </moduleSet>
+  </moduleSets>
+
+</assembly>

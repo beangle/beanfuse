@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean name="avatar.my" autowire="byName" scope="prototype"
+		class="org.beanfuse.webapp.avatar.action.MyAction">
+		<property name="avatarBase" ref="defaultAvatarBase"/>
+	</bean>
+
+	<bean name="avatar.my-upload" autowire="byName" scope="prototype"
+		class="org.beanfuse.webapp.avatar.action.MyUploadAction">
+		<property name="avatarBase" ref="defaultAvatarBase"/>
+	</bean>
+
+	<bean name="avatar.user" autowire="byName" scope="prototype"
+		class="org.beanfuse.webapp.avatar.action.UserAction">
+		<property name="avatarBase" ref="defaultAvatarBase"/>
+	</bean>
+	
+	<bean name="avatar.board" autowire="byName" scope="prototype"
+		class="org.beanfuse.webapp.avatar.action.BoardAction">
+		<property name="avatarBase" ref="defaultAvatarBase"/>
+	</bean>
+</beans>

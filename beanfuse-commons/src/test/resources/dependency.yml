@@ -1,0 +1,10 @@
+beans:
+  - id: user.*Service
+    properties:
+      provider: !ref userLdapProvider
+      someList: !list
+        - "a list element followed by a reference"
+        - !ref userLdapProvider
+      someMap: !map
+       "yup an entry": "just some string"
+       "yup a ref": !ref userLdapProvider

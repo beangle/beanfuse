@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+     <package name="beanfuse-avatar" extends="beanfuse" namespace="/avatar">
+        <action name="my" class="avatar.my"/>
+        <action name="my-upload" class="avatar.my-upload"/>
+        <action name="user" class="avatar.user"/>
+        <action name="board" class="avatar.board"/>
+	 </package>
+</struts>

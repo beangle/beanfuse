@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean name="classpathDocLoader" singleton="false" 
+	class="org.beanfuse.webapp.doc.service.ClasspathDocLoader" autowire="byName">
+	</bean>
+</beans>

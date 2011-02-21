@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- 业务规则表参数 -->
+<hibernate-mapping package="org.beanfuse.rule.model" >
+	<class name="RuleConfigParam" table="RuleConfigParams">
+		<id name="id" unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<many-to-one name="ruleConfig" column="rule_config_id"/>
+		<many-to-one name="param" column="param_id"/>
+		<property name="value"/>
+	</class>
+</hibernate-mapping>

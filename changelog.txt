@@ -1,0 +1,85 @@
+*1.6.0(2009-11-29)
+[01]将beanfuse-action,beanfuse-route和beanfuse-struts2-webapp合成一个beanfuse-struts2包。
+    更加集中关注struts2,放弃对其他web mvc的支持
+[02]beanfuse-struts2允许多个配置文件META-INF/convention-route.propertis，并简化了配置的名称
+[03]增强了beanfuse-struts2多个profile的命中效率
+[04]更改了beanfuse-struts所有小应用的url形式，采用了SEO的方式
+[05]原有放置小应用的工程beanfuse-struts2重新命名为beanfuse-webapp
+[06]将static资源从原有的beanfuse-struts2-webapp抽取到beanfuse-webapp-resource
+[07]新的beanfuse-webapp引入了struts-jquery-plugin(1.7.3)
+[08]EntityDrivenAction.getEntityId支持id参数，而不仅仅是entityId或者entity.id
+[09]合并了security-api和security-core
+[10]合并了notification-api和notificaiton-core
+[11]增强了security/board的管理界面
+[12]增强了avatar/board的管理界面
+[13]beanfuse-struts2提供classpath范围内的前缀查找功能
+[14]download增加下载URL形式的资源
+[15]transfer中TemplateWriter中模板的路径改为URL形式
+[16]admin sessions
+[17]
+*1.5.3.1
+[01]修复Condition 增加了可变参数构造方法带来的错误
+*1.5.3
+[01]代码升级为基于JDK1.5
+[02]移动DownloadHelper到beanfuse-commons包中，并且增强了content type配置
+[03]增强EntityDrivenAction,增加addError等方法
+[04]修复了LongIdTimeObject实现接口不对，EntityDrivenAction对该类对象的保存错误
+[05]提供actionmesage和actionerror的beanfuse模板以新的样式集成flash消息
+[06]增强个人修改密码功能
+[07]增强数据权限、用户、资源等功能修改界面
+[08]对资源的管理增加了刷新缓存功能,不用重启服务
+[09]Condition 增加了可变参数构造方法
+[10]修复了MultiEntityImporter的几个错误
+*1.5.2
+[01]修复了Order类中含有desc初始化函数的错误
+[02]修复了action!method在redirect的时候的错误
+[03]Avatar中增加了的上传图片功能
+[04]增强了menu,user,restriction的编辑界面
+[05]解决了LogoutAction中不能直接session.invalidate的问题
+[06]修复了new Action("",method)在跳转中出现的错误
+[07]transfer中增加支持了MultiEntityImporter
+[08]增加了jcaptcha验证码功能,去除了RandomCodeGenerator和CheckNumImageAction
+*1.5.1
+[01]导出excel带有数据数字和日期等格式，而非全部字符串格式
+*1.5.0
+[01]RailsNamingStrategy, logicalColumnName=column||addUnderscores(unqualify(propertyName));
+[02]action-struts2 增加了freemarkerResult
+[03]BaseAction增加了针对单个对象的saveOrUpdate和remove
+[04]DispatchAction增加了getFlash(),Flash增加了addMessage方法
+[05]ModelDrivenAction中的CRUD方法增加throws Exception
+[06]BaseAction增加了getTextResource方法，并更改了方法的可见性(protected)
+[07]BaseAction,PopulateHelper增加了按照class进行popluate的方法
+[08]BaseAction中的getDate方法更名为getTime，增加返回java.sql.Date的getDate方法
+[09]persist中增加注册了railsNamingStrategy
+[10]spring-context.xml配置文件移动到spring/beans.xml
+[11]model中增加了beans.xml，更改了ModelBuilder初始化的方式
+[12]EntityService中增加了modelBuilder属性和getModel()方法
+[13]action-struts2中ModelDrivenAction更名为EntityDrivenAction
+[14]persist中的TableNameByModuleStrategy支持多个tablename-default.properties和多个tablename.properties
+[15]删除了beanfuse-web软件包，RequestUtils,CookieUtils转移到beanfuse-commons
+[16]增加了beanfuse-webapp软件包
+[17]删除了beanfuse-action-struts软件包，不再支持struts1.X
+[18]删除了beanfuse-convention-plugin软件包,内容合并到beanfuse-action-struts2
+*1.4.0
+[01]beanfuse-model增加了LongIdTimeObject类
+[02]beanfuse-persist独立出来了org.hibernate,用于对hibernate3.2的支持
+    这些支持中新增了TableNameSequenceGenerator,RailsNamingStrategy
+[03]合并beanfuse-utils到beanfuse-commons包中
+[04]添加了beanfuse-test项目
+[05]按照约定跳转更好的支持struts2
+[06]增加了对spring依赖注入的支持
+*1.1.0
+[01]update dependency to spring 2.5.6(spring-core-2.5.6,spring-orm-2.5.6,spring-webmvc-2.5.6,spring-struts-2.0.8)
+[02]persist保中utilDao更名为EntityDao,UtilService更名为EntityService
+[03]refactor model class
+[04]support jdk1.4+ 
+[05]refactor mvc module
+[05]support struts2 
+[06]将Query中的Page实现的接口由Collection改为List
+*1.0.1
+[01]去除了common-logging的依赖，增加了slf4j包的依赖
+[02]将原初配置的resources和testResources配置去除，使用默认的资源位置
+[03]log4j的实现升级1.2.15
+[04]user testng
+*1.0.0
+[01]建立了common-lang,common-log等jar包的依赖

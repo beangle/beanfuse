@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.beanfuse.security.restriction.model">
+	<class name="Param" entity-name="org.beanfuse.security.restriction.Param">
+		<cache usage="read-write" />
+		<id name="id" unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="name" not-null="true"/>
+		<property name="type" not-null="true"/>
+		<property name="description" not-null="true"/>
+		<property name="multiValue" not-null="true"/>
+		<component name="editor"
+			class="org.beanfuse.security.restriction.model.ParamEditor">
+			<property name="source"/>
+			<property name="idProperty"/>
+			<property name="properties"/>
+		</component>
+		<set name="paramGroups" table="param_groups_params">
+			<key column="param_id"/>
+			<many-to-many entity-name="org.beanfuse.security.restriction.ParamGroup" column="group_id"/>
+		</set>
+	</class>
+
+	<class name="ParamGroup" entity-name="org.beanfuse.security.restriction.ParamGroup">
+		<cache usage="read-write" />
+		<id name="id" unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="name" not-null="true"/>
+		<set name="params" table="param_groups_params">
+			<key column="group_id"/>
+			<many-to-many entity-name="org.beanfuse.security.restriction.Param" column="param_id"/>
+		</set>
+	</class>
+	
+	<class name="Pattern" entity-name="org.beanfuse.security.restriction.Pattern">
+		<cache usage="read-write" />
+		<id name="id"  unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="content" not-null="true"/>
+		<property name="description" not-null="true"/>
+		<many-to-one name="paramGroup"  not-null="true" />
+	</class>
+
+	<!--用户限制-->
+	<class name="Restriction" entity-name="org.beanfuse.security.restriction.UserRestriction">
+		<id name="id" unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="enabled" not-null="true" />
+		<map name="items" table="user_restrictions_items" cascade="all">
+			<key column="restriction_id" />
+			<map-key type="long" column="param_id"/>
+			<element type="string" column="content"/>
+		</map>
+		<many-to-one name="holder" entity-name="org.beanfuse.security.User" />
+		<many-to-one name="paramGroup" not-null="true" />
+	</class>
+	
+	<!--用户组限制-->
+	<class name="Restriction" entity-name="org.beanfuse.security.restriction.GroupRestriction">
+		<id name="id" unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="enabled" not-null="true" />
+		<map name="items" cascade="all">
+			<key column="restriction_id" />
+			<map-key type="long" column="param_id"/>
+			<element type="string" column="content"/>
+		</map>
+		<many-to-one name="holder" entity-name="org.beanfuse.security.Group" />
+		<many-to-one name="paramGroup" not-null="true" />
+	</class>
+	
+	<!--权限限制-->
+	<class name="Restriction" entity-name="org.beanfuse.security.restriction.AuthorityRestriction">
+		<id name="id" unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="enabled" not-null="true" />
+		<map name="items" table="auth_restrictions_items" cascade="all">
+			<key column="restriction_id" />
+			<map-key type="long" column="param_id"/>
+			<element type="string" column="content"/>
+		</map>
+		<many-to-one name="holder" entity-name="org.beanfuse.security.Authority" />
+		<many-to-one name="paramGroup" not-null="true" />
+	</class>
+</hibernate-mapping>

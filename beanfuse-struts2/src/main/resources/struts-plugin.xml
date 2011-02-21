@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.freemarker.manager.classname"  value="org.beanfuse.struts2.view.freemarker.FreemarkerManager"/>
+	<constant name="struts.serve.static" value="true"/>
+	<!--<constant name="struts.serve.static.browserCache" value="true"/>-->
+  
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<!--默认i18n和配置文件不重复加载-->
+	<constant name="struts.i18n.reload" value="false"/>
+	<constant name="struts.configuration.xml.reload" value="false"/>
+	<constant name="struts.action.extension" value="action"/>
+	<constant name="struts.custom.i18n.resources" value="beanfuse,application"/>
+	<!-- max 50M -->
+    <constant name="struts.multipart.maxSize" value="52428800"/>
+
+	<bean type="com.opensymphony.xwork2.UnknownHandler" class="org.beanfuse.struts2.plugin.ConventionRouteHandler" />
+	<bean type="org.beanfuse.struts2.plugin.result.ResultBuilder" class="org.beanfuse.struts2.plugin.result.DefaultResultBuilder" />
+    <bean type="org.apache.struts2.dispatcher.mapper.ActionMapper" class="org.beanfuse.struts2.plugin.mapper.ConventionActionMapper" />
+    
+    <bean type="org.beanfuse.struts2.route.ActionNameBuilder" class="org.beanfuse.struts2.route.impl.DefaultActionNameBuilder" />
+    <bean type="org.beanfuse.struts2.route.ViewMapper" class="org.beanfuse.struts2.route.impl.DefaultViewMapper" />
+    <bean type="org.beanfuse.struts2.route.ProfileService" class="org.beanfuse.struts2.route.impl.ProfileServiceImpl" />
+    
+	<package name="beanfuse" extends="struts-default">
+		<result-types>
+			<result-type name="redirectAction" class="org.beanfuse.struts2.plugin.result.ServletActionRedirectResult" />
+		</result-types>
+	 	<interceptors>
+		    <interceptor name="flash" class="org.beanfuse.struts2.plugin.interceptor.FlashInterceptor"/>        
+			<interceptor-stack name="beanfuseStack">
+		        <interceptor-ref name="exception"/>
+		        <interceptor-ref name="alias"/>
+		        <interceptor-ref name="servletConfig"/>
+		        <interceptor-ref name="i18n"/>
+		        <interceptor-ref name="prepare"/>
+		        <interceptor-ref name="chain"/>
+		        <interceptor-ref name="debugging"/>
+		        <interceptor-ref name="profiling"/>
+		        <interceptor-ref name="scopedModelDriven"/>
+		        <interceptor-ref name="modelDriven"/>
+		        <interceptor-ref name="fileUpload"/>
+		        <interceptor-ref name="checkbox"/>
+		        <interceptor-ref name="staticParams"/>
+		        <interceptor-ref name="actionMappingParams"/>
+		        <interceptor-ref name="params">
+		          <param name="excludeParams">dojo\..*,^struts\..*</param>
+		        </interceptor-ref>
+		        <interceptor-ref name="conversionError"/>
+		        <interceptor-ref name="validation">
+		            <param name="excludeMethods">input,back,cancel,browse</param>
+		        </interceptor-ref>
+		        <interceptor-ref name="workflow">
+		            <param name="excludeMethods">input,back,cancel,browse</param>
+		        </interceptor-ref>
+		        <!--add flash plugin to struts2 default interceptor stack-->
+		        <interceptor-ref name="flash"/>
+	      		 </interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="beanfuseStack"/>
+		<global-results>
+	      	  <result name="redirector" type="freemarker">/template/redirector.ftl</result>
+	      	  <result name="error" type="freemarker">/com/ekingstar/eams/system/security/web/action/error.ftl</result>
+		</global-results>
+	</package>
+</struts>

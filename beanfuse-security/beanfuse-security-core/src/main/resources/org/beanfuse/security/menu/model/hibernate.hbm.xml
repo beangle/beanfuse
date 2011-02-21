@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.beanfuse.security.menu.model">
+    <!--菜单-->
+	<class name="Menu" entity-name="org.beanfuse.security.menu.Menu" >
+		<cache usage="read-write" />
+		<id name="id"  unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<many-to-one name="profile" not-null="true" />
+		<property name="code" length="32" not-null="true" />
+
+		<property name="title" length="100"	not-null="true" />
+		<property name="engTitle"  length="100"	not-null="true" />
+		<property name="description" length="100" />
+		<property name="entry" />
+		<property name="enabled" not-null="true" />
+		<set name="resources"  batch-size="16">
+			<cache usage="read-write" />
+			<key column="menu_id" />
+			<many-to-many class="org.beanfuse.security.Resource" column="resource_id" />
+		</set>
+	</class>
+	
+	<class
+		name="MenuAuthority" entity-name="org.beanfuse.security.menu.MenuAuthority" >
+		<id name="id"  unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<many-to-one name="group" />
+		<many-to-one name="menu" />
+	</class>
+	
+	<class name="MenuProfile"    entity-name="org.beanfuse.security.menu.MenuProfile">
+		<cache usage="read-write"/>
+		<id name="id"  unsaved-value="null">
+			<generator class="org.beanfuse.persist.hibernate.TableNameSequenceGenerator"/>
+		</id>
+		<property name="name" length="50" unique="true"/>
+		<bag name="menus" cascade="all">
+			<key column="profile_id"/>
+			<one-to-many class="org.beanfuse.security.menu.Menu"/>
+		</bag>
+		<many-to-one name="category"  not-null="true"/>
+	</class>
+	
+	<query name="getGroupMenu">
+		<![CDATA[ from MenuAuthority as ra where  	(ra.group = :group and	 ra.menu = :menu) ]]>
+	</query>
+</hibernate-mapping>
